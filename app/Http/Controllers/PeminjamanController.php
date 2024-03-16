@@ -43,10 +43,10 @@ class PeminjamanController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            "userid" => "required",
-            "bukuid" => "required",
-            "tanggal_peminjaman" => "required",
-            "tanggal_pengembalian" => "required",
+            "UserID" => "required",
+            "BukuID" => "required",
+            "TanggalPeminjaman" => "required",
+            "TanggalPengembalian" => "required",
 
             
         ]);
