@@ -45,6 +45,19 @@ class BukuController extends Controller
             'Cover' => 'required',
         ]);
 
+        if ($request->hasFile('Cover')){
+            if($request->file('Cover')->isValid()){
+                try {
+                    $file = $request->file('Cover');
+                    $image = base64_encode(file_get_contents($file));
+                    $buku['cover'] = $image;
+                } catch (Exception $e){
+                    return reponse()->json([
+                        'error' => $e->getMessage()
+                    ]);
+                }
+            }
+        }
         try {
             $result = Buku::create($buku);
             return response()->json([
