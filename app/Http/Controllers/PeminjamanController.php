@@ -46,9 +46,7 @@ class PeminjamanController extends Controller
             "UserID" => "required",
             "BukuID" => "required",
             "TanggalPeminjaman" => "required",
-            "TanggalPengembalian" => "required",
-
-            
+            "TanggalPengembalian" => "required",            
         ]);
         $newuser = Peminjaman::create($data);
         $res = [

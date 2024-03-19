@@ -24,16 +24,16 @@ class Peminjaman extends Model
 
     public function bukus(): BelongsTo
     {
-        return $this->belongsTo(Buku::class,'bukuid');
+        return $this->belongsTo(Buku::class,'BukuID');
     }
 
     public function users(): BelongsTo
     {
-        return $this->belongsTo(User::class,'userid');
+        return $this->belongsTo(User::class,'UserID');
     }
 
     public function riwayats(): HasMany
     {
-        return $this->hasMany(Riwayat::class, 'riwayatid');
+        return $this->hasMany(Riwayat::class, 'RiwayatID');
     }
 }

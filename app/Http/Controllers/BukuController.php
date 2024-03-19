@@ -82,7 +82,7 @@ class BukuController extends Controller
     public function show(Buku $buku)
     {
         {
-            $buku = Buku::all()->find($buku->bukuid);
+            $buku = Buku::all()->find($buku->BukuID);
             $res = [
                 'data' => $buku
             ];
