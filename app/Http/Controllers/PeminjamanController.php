@@ -50,7 +50,7 @@ class PeminjamanController extends Controller
         ]);
         $newuser = Peminjaman::create($data);
         $res = [
-            'message' => 'succes create data',
+            'message' => 'success create data',
             'data' => $newuser
         ];
         return response()->json($res);

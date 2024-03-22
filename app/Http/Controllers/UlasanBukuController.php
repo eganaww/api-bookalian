@@ -43,10 +43,10 @@ class UlasanBukuController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            "userid" => "required",
-            "bukuid" => "required",
-            "ulasan" => "required",
-            "rating" => "required",
+            "UserID" => "required",
+            "BukuID" => "required",
+            "Ulasan" => "required",
+            "Rating" => "required",
 
             
         ]);

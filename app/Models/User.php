@@ -67,5 +67,10 @@ class User extends Authenticatable
         return $this->hasMany(UlasanBuku::class, 'ulasanid');
     }
 
+    public function buku(): BelongsTo
+    {
+        return $this->belongsTo(Buku::class, 'BukuID');
+    }
+
     
 }

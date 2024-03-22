@@ -44,8 +44,8 @@ class KategoriBukuRelasiController extends Controller
     {
         try{
             $data = $request->validate([
-                "bukuid" => "required",
-                "kategoriid" => "required"
+                "BukuID" => "required",
+                "KategoriID" => "required"
             ]);
             $newuser = KategoriBukuRelasi::create($data);
             $res = [

@@ -39,7 +39,7 @@ class KategoriBukuController extends Controller
     {
         try {
             $data = $request->validate([
-                "nama_kategori" => "required"
+                "NamaKategori" => "required"
             ]);
             $newuser = KategoriBuku::create($data);
             $res = [

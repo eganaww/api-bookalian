@@ -16,7 +16,7 @@ class BukuController extends Controller
     public function index()
     {
         try {
-            $user = Buku::get();
+            $user = Buku::with(['ulasan_bukus'])->get();
             $count = Buku::count();
             return response()->json([
                 'message' => 'Buku found successfully',
@@ -82,7 +82,7 @@ class BukuController extends Controller
     public function show(Buku $buku)
     {
         {
-            $buku = Buku::all()->find($buku->BukuID);
+            $buku = Buku::with(['ulasan_bukus', 'users'])->get()->find($buku->BukuID);
             $res = [
                 'data' => $buku
             ];
