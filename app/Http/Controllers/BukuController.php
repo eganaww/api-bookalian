@@ -34,43 +34,79 @@ class BukuController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+    // public function store(Request $request)
+    // {
+        
+    //     $buku = $request->validate([
+    //         'Judul' => 'string|required',
+    //         'Penulis' => 'string|required',
+    //         'Penerbit' => 'string|required',
+    //         'TahunTerbit' => 'required',
+    //         'Cover' => 'required',
+    //     ]);
+
+    //     if ($request->hasFile('Cover')){
+    //         if($request->file('Cover')->isValid()){
+    //             try {
+    //                 $file = $request->file('Cover');
+    //                 $image = base64_encode(file_get_contents($file));
+    //                 $buku['cover'] = $image;
+    //             } catch (Exception $e){
+    //                 return reponse()->json([
+    //                     'error' => $e->getMessage()
+    //                 ]);
+    //             }
+    //         }
+    //     }
+    //     try {
+    //         $result = Buku::create($buku);
+    //         return response()->json([
+    //             'message' => 'Buku created successfully',
+    //             'data' => $result
+    //         ], 200);
+    //     } catch (Exception $e) {
+    //         return response()->json([
+    //             'message' => 'Internal Server Error',
+    //             'error' => $e
+    //         ], 500);
+    //     }
+    // }
+
     public function store(Request $request)
     {
-        
         $buku = $request->validate([
-            'Judul' => 'string|required',
-            'Penulis' => 'string|required',
-            'Penerbit' => 'string|required',
-            'TahunTerbit' => 'required',
-            'Cover' => 'required',
-        ]);
+            "Judul" => "required",
+            "Penulis" => "required",
+            "Penerbit" => "required",
+            "TahunTerbit" => "required",
+            "Cover" => "required",
 
-        if ($request->hasFile('Cover')){
-            if($request->file('Cover')->isValid()){
+        ]);
+        if ($request->hasFile('Cover')) {
+            if($request->file('Cover')->isValid()) {
                 try {
                     $file = $request->file('Cover');
                     $image = base64_encode(file_get_contents($file));
-                    $buku['cover'] = $image;
-                } catch (Exception $e){
-                    return reponse()->json([
-                        'error' => $e->getMessage()
+                    $buku['Cover'] = $image;
+    
+    
+                } catch (Exception $e) {
+                    return response()->json([
+                        'error'=> $e->getMessage()
                     ]);
+    
                 }
             }
         }
-        try {
-            $result = Buku::create($buku);
-            return response()->json([
-                'message' => 'Buku created successfully',
-                'data' => $result
-            ], 200);
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => 'Internal Server Error',
-                'error' => $e
-            ], 500);
-        }
+        $newbuku = Buku::create($buku);
+        $res = [
+            'message' => 'succes create data',
+            'data' => $newbuku
+        ];
+        return response()->json($res);
+
     }
+
 
     /**
      * Store a newly created resource in storage.

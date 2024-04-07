@@ -13,36 +13,28 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        try {
-            $data = $request->validate([
-                'Username' => 'required',
-                'Password' => 'required',
-            ]);
-
-            $user = User::where('Username', $data['Username'])->first();
-
-            if ($user && Hash::check($data['Password'], $user->Password)) {
-                // $request->session()->regenerate();
-
-                return response()->json([
-                    "message" => "Login Successfully",
-                    'data' => $user
-                ], 200);
-            }
-
-            throw ValidationException::withMessages([
-                'username' => ['Kredensial yang diberikan tidak cocok dengan catatan kami.'],
-            ]);
-        } catch (ValidationException $e) {
+        $data = $request->validate([
+            'Username' => 'required',
+            'Password' => 'required',
+        ]);
+    
+        $user = User::where('Username', $data['Username'])->first();
+        if ($user && Hash::check($data['Password'], $user->Password)) {
+            // $request->session()->regenerate();
+            $token = $user->createToken('Personal Token')->accessToken;
+        
             return response()->json([
-                'error' => $e->validator->getMessageBag(),
-            ], 400);
-        } catch (\Exception $e) {
-            return response()->json([
-                'error' => $e->getMessage(),
-            ], 400);
+                'message' => 'Login Successfully',
+                'data' => $user,
+                'token' => $token,
+            ], 200);
         }
+    
+        throw ValidationException::withMessages([
+            'email' => ['Kredensial yang diberikan tidak cocok dengan catatan kami.'],
+        ]);
     }
+    
 
 
     public function register(Request $request)
@@ -57,15 +49,14 @@ class AuthController extends Controller
             ]);
             $data["Password"] = Hash::make($data["Password"]);
             $newuser = User::create($data);
-            $userdata = User::where('UserID', $newuser['UserID'])->first();
             $res = [
                 'message' => 'succes create data',
-                'data' => $userdata
+                'data' => $newuser
             ];
             return response()->json($res);
         } catch (Exception $e) {
             return response()->json([
-                'error' => $e->getMessage(),
+                'error' => $e,
             ], 400);
         }
     }
